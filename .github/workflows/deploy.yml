@@ -8,7 +8,7 @@ on:
 
 jobs:
   run-unit-test:
-    run-on: self-hosted
+    runs-on: self-hosted
     steps:
       - name: Checkout1
         uses: actions/checkout@v3
