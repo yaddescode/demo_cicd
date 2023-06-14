@@ -24,6 +24,6 @@ jobs:
         run:
 #          export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain startengine --domain-owner 480654006739 --query authorizationToken --output text`
 #          echo ${CODEARTIFACT_AUTH_TOKEN}
-          ./gradlew --continue clean TestReport
+          ./gradlew --continue clean build
 
 
