@@ -5,23 +5,8 @@ on:
       - master
 
 jobs:
-  postgres-job:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
   run-all-tests:
     runs-on: self-hosted
-    needs: postgres-job
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -31,6 +16,19 @@ jobs:
         with:
           java-version: 11
           distribution: 'adopt'
+      - name: setup postgres
+        services:
+          postgres:
+            image: postgres
+            env:
+              POSTGRES_PASSWORD: postgres
+            options: >-
+              --health-cmd pg_isready
+              --health-interval 10s
+              --health-timeout 5s
+              --health-retries 5
+            ports:
+              - 5432:5432
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
