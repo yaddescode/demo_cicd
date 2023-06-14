@@ -1,0 +1,29 @@
+on:
+  push:
+    branches-ignore:
+      - main
+      - master
+
+jobs:
+  run-all-tests:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: 'adopt'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run:
+#          export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain startengine --domain-owner 480654006739 --query authorizationToken --output text`
+#          echo ${CODEARTIFACT_AUTH_TOKEN}
+          ./gradlew --continue clean build
+
+
